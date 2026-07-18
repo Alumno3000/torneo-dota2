@@ -786,13 +786,13 @@
                                 <tr><th>Equipo</th><th>PJ</th><th>PG</th><th>PP</th><th>Puntos</th></tr>
                             </thead>
                             <tbody>
-                                <tr><td>TEAM SALTADORES (TSR)</td><td>1</td><td>1</td><td>0</td><td><strong>1</strong></td></tr>
+                                <tr><td>TEAM SALTADORES (TSR)</td><td>2</td><td>2</td><td>0</td><td><strong>2</strong></td></tr>
                                 <tr><td>INKA FORCE (IKF)</td><td>1</td><td>1</td><td>0</td><td><strong>1</strong></td></tr>
                                 <tr><td>LOS SACA AU (LSA)</td><td>1</td><td>1</td><td>0</td><td><strong>1</strong></td></tr>
                                 <tr><td>CINCO COJUDOS (COC)</td><td>2</td><td>1</td><td>1</td><td><strong>1</strong></td></tr>
                                 <tr><td>LOS FRACASADOS DE TICATICA (LFDT)</td><td>2</td><td>1</td><td>1</td><td><strong>1</strong></td></tr>
                                 <tr><td>IMPERIUM (IMP)</td><td>1</td><td>0</td><td>1</td><td><strong>0</strong></td></tr>
-                                <tr><td>SPORTING BEBOTAS (SGB)</td><td>2</td><td>0</td><td>2</td><td><strong>0</strong></td></tr>
+                                <tr><td>SPORTING BEBOTAS (SGB)</td><td>3</td><td>0</td><td>3</td><td><strong>0</strong></td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -1099,6 +1099,19 @@
                             <td><span class="badge finalizado">Finalizado</span></td>
                             <td><button class="btn-stats" onclick="abrirModal('sgb_lfdt')">Ver Estadísticas</button></td>
                         </tr>
+                        
+                        <!-- Nueva Partida: AKP vs BEC -->
+                        <tr>
+                            <td>18/07/2026</td>
+                            <td>ALANOKA PRIME (AKP)</td>
+                            <td>BUYBACK EN CUOTAS (BEC)</td>
+                            <td>64 - 36</td>
+                            <td>ALANOKA PRIME (AKP)</td>
+                            <td>37:58</td>
+                            <td><span class="badge finalizado">Finalizado</span></td>
+                            <td><button class="btn-stats" onclick="abrirModal('akp_bec')">Ver Estadísticas</button></td>
+                        </tr>
+
 
                         <!-- Nueva Partida: TOB vs UBFD -->
                         <tr>
@@ -1122,6 +1135,20 @@
                             <td>28:53</td>
                             <td><span class="badge finalizado">Finalizado</span></td>
                             <td><button class="btn-stats" onclick="abrirModal('lkde_vlc')">Ver Estadísticas</button></td>
+                        </tr>
+                        
+
+                        <!-- FECHA 3 -->
+                        <!-- Nueva Partida: TSR vs SGB (W.O.) -->
+                        <tr>
+                            <td>18/07/2026</td>
+                            <td>TEAM SALTADORES (TSR)</td>
+                            <td>SPORTING BEBOTAS (SGB)</td>
+                            <td>W.O. - 0</td>
+                            <td>TEAM SALTADORES (TSR)</td>
+                            <td>00:00</td>
+                            <td><span class="badge finalizado" style="background: rgba(255, 152, 0, 0.2); color: #ff9800; border: 1px solid rgba(255, 152, 0, 0.3);">W.O.</span></td>
+                            <td><button class="btn-stats" onclick="abrirModal('tsr_sgb')">Ver Detalles</button></td>
                         </tr>
 
 
@@ -1459,6 +1486,13 @@
                     { name: "coco", hero: "Doom", kda: "3 / 6 / 2", oro: "15,264" },
                     { name: "Y-1𓆩𓆪", hero: "Phantom Assassin", kda: "1 / 7 / 2", oro: "11,042" }
                 ]
+            },
+            "tsr_sgb": {
+                tipo: "wo",
+                titulo: "TEAM SALTADORES vs SPORTING BEBOTAS",
+                teamGanador: "TEAM SALTADORES (TSR)",
+                teamPerdedor: "SPORTING BEBOTAS (SGB)",
+                motivo: "El equipo rival (SPORTING BEBOTAS) no se presentó o no completó la alineación en la sala oficial de Modo Capitán dentro del tiempo reglamentario."
             }
 
         };
