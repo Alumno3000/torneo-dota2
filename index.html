@@ -766,9 +766,9 @@
                                 <tr><th>Equipo</th><th>PJ</th><th>PG</th><th>PP</th><th>Puntos</th></tr>
                             </thead>
                             <tbody>
-                                <tr><td>ALANOKA PRIME (AKP)</td><td>2</td><td>2</td><td>0</td><td><strong>2</strong></td></tr>
+                                <tr><td>ALANOKA PRIME (AKP)</td><td>3</td><td>3</td><td>0</td><td><strong>3</strong></td></tr>
                                 <tr><td>UVIMA BOYS FOR DOKI (UBFD)</td><td>2</td><td>2</td><td>0</td><td><strong>2</strong></td></tr>
-                                <tr><td>TEARS OF BLOOD (TOB)</td><td>2</td><td>1</td><td>1</td><td><strong>1</strong></td></tr>
+                                <tr><td>TEARS OF BLOOD (TOB)</td><td>3</td><td>1</td><td>2</td><td><strong>1</strong></td></tr>
                                 <tr><td>VIRA LATA CARAMELO (VLC)</td><td>2</td><td>1</td><td>1</td><td><strong>1</strong></td></tr>
                                 <tr><td>LOS KCHEROS DE EDY (LKDE)</td><td>2</td><td>0</td><td>2</td><td><strong>0</strong></td></tr>
                                 <tr><td>BUYBACK EN CUOTAS (BEC)</td><td>2</td><td>0</td><td>2</td><td><strong>0</strong></td></tr>
@@ -786,8 +786,8 @@
                                 <tr><th>Equipo</th><th>PJ</th><th>PG</th><th>PP</th><th>Puntos</th></tr>
                             </thead>
                             <tbody>
-                                <tr><td>TEAM SALTADORES (TSR)</td><td>2</td><td>2</td><td>0</td><td><strong>2</strong></td></tr>
-                                <tr><td>INKA FORCE (IKF)</td><td>1</td><td>1</td><td>0</td><td><strong>1</strong></td></tr>
+                                <tr><td>TEAM SALTADORES (TSR)</td><td>3</td><td>2</td><td>1</td><td><strong>2</strong></td></tr>
+                                <tr><td>INKA FORCE (IKF)</td><td>2</td><td>2</td><td>0</td><td><strong>2</strong></td></tr>
                                 <tr><td>LOS SACA AU (LSA)</td><td>1</td><td>1</td><td>0</td><td><strong>1</strong></td></tr>
                                 <tr><td>CINCO COJUDOS (COC)</td><td>2</td><td>1</td><td>1</td><td><strong>1</strong></td></tr>
                                 <tr><td>LOS FRACASADOS DE TICATICA (LFDT)</td><td>2</td><td>1</td><td>1</td><td><strong>1</strong></td></tr>
@@ -1151,6 +1151,30 @@
                             <td><button class="btn-stats" onclick="abrirModal('tsr_sgb')">Ver Detalles</button></td>
                         </tr>
 
+                        <!-- Nueva Partida: AKP vs TOB -->
+                        <tr>
+                            <td>18/07/2026</td>
+                            <td>ALANOKA PRIME (AKP)</td>
+                            <td>TEARS OF BLOOD (TOB)</td>
+                            <td>23 - 2</td>
+                            <td>ALANOKA PRIME (AKP)</td>
+                            <td>16:50</td>
+                            <td><span class="badge finalizado">Finalizado</span></td>
+                            <td><button class="btn-stats" onclick="abrirModal('akp_tob')">Ver Estadísticas</button></td>
+                        </tr>
+
+                        <!-- Nueva Partida: TSR vs IKF -->
+                        <tr>
+                            <td>18/07/2026</td>
+                            <td>TEAM SALTADORES (TSR)</td>
+                            <td>INKA FORCE (IKF)</td>
+                            <td>23 - 49</td>
+                            <td>INKA FORCE (IKF)</td>
+                            <td>24:06</td>
+                            <td><span class="badge finalizado">Finalizado</span></td>
+                            <td><button class="btn-stats" onclick="abrirModal('tsr_ikf')">Ver Estadísticas</button></td>
+                        </tr>
+
 
 
                     </tbody>
@@ -1493,6 +1517,65 @@
                 teamGanador: "TEAM SALTADORES (TSR)",
                 teamPerdedor: "SPORTING BEBOTAS (SGB)",
                 motivo: "El equipo rival (SPORTING BEBOTAS) no se presentó o no completó la alineación en la sala oficial de Modo Capitán dentro del tiempo reglamentario."
+            },
+            "akp_tob": {
+                tipo: "normal",
+                titulo: "ALANOKA PRIME vs TEARS OF BLOOD",
+                teamGanador: "AKP",
+                killsGanador: "23",
+                teamPerdedor: "TOB",
+                killsPerdedor: "2",
+                badgeVictoria: "VICTORIA DE ALANOKA PRIME",
+                duracion: "16:50",
+                idPartida: "8903042368",
+                mvpNombre: "vivien (Riki)",
+                mvpKda: "9 / 0 / 2",
+                radiantName: "ALANOKA PRIME",
+                radiantPlayers: [
+                    { name: ".", hero: "Kunkka", kda: "5 / 0 / 1", oro: "10,629" },
+                    { name: "ChangPark", hero: "Winter Wyvern", kda: "1 / 1 / 9", oro: "4,112" },
+                    { name: "ElVerdaderoConocido", hero: "Treant Protector", kda: "0 / 1 / 9", oro: "3,269" },
+                    { name: "vivien", hero: "Riki", kda: "9 / 0 / 2", oro: "11,963", destaque: true },
+                    { name: "d4m43s", hero: "Invoker", kda: "8 / 0 / 4", oro: "10,226" }
+                ],
+                direName: "TEARS OF BLOOD",
+                direPlayers: [
+                    { name: "LILROUSSE", hero: "Gyrocopter", kda: "0 / 5 / 1", oro: "5,302" },
+                    { name: "sincafeina", hero: "Brewmaster", kda: "0 / 5 / 0", oro: "3,566" },
+                    { name: "SEISA", hero: "Grimstroke", kda: "1 / 7 / 1", oro: "2,829" },
+                    { name: "Arise", hero: "Night Stalker", kda: "0 / 2 / 0", oro: "5,118" },
+                    { name: "TDM.HEMA", hero: "Lich", kda: "1 / 4 / 0", oro: "2,610" }
+                ]
+            },
+
+            "tsr_ikf": {
+                tipo: "normal",
+                titulo: "TEAM SALTADORES vs INKA FORCE",
+                teamGanador: "IKF",
+                killsGanador: "49",
+                teamPerdedor: "TSR",
+                killsPerdedor: "23",
+                badgeVictoria: "VICTORIA DE INKA FORCE",
+                duracion: "24:06",
+                idPartida: "8902999041",
+                mvpNombre: "demonio (Night Stalker)",
+                mvpKda: "18 / 2 / 9",
+                radiantName: "TEAM SALTADORES",
+                radiantPlayers: [
+                    { name: "Incognito mode", hero: "Disruptor", kda: "4 / 14 / 13", oro: "3,722" },
+                    { name: "pepino dulce", hero: "Faceless Void", kda: "4 / 7 / 8", oro: "9,711" },
+                    { name: "SEBBI", hero: "Centaur Warrunner", kda: "3 / 15 / 12", oro: "4,571" },
+                    { name: "pinguino volador", hero: "Dawnbreaker", kda: "2 / 9 / 13", oro: "7,696" },
+                    { name: "l´s", hero: "Invoker", kda: "8 / 4 / 11", oro: "7,808" }
+                ],
+                direName: "INKA FORCE",
+                direPlayers: [
+                    { name: "demonio", hero: "Night Stalker", kda: "18 / 2 / 9", oro: "17,189", destaque: true },
+                    { name: "AN1", hero: "Dazzle", kda: "8 / 5 / 24", oro: "14,511" },
+                    { name: "мусор", hero: "Luna", kda: "14 / 1 / 11", oro: "21,668" },
+                    { name: "NINJA", hero: "Tusk", kda: "7 / 9 / 29", oro: "7,585" },
+                    { name: "Kimochi", hero: "Clockwerk", kda: "2 / 6 / 23", oro: "6,743" }
+                ]
             }
 
         };
