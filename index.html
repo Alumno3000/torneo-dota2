@@ -387,6 +387,25 @@
     border-color: var(--rojo-brillo);
 }
 
+.grid-equipos-vertical {
+    display: grid;
+    /* Crea exactamente 4 columnas del mismo tamaño */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px;
+    justify-content: center;
+}
+
+/* El truco para centrar los 2 últimos en pantallas grandes */
+@media (min-width: 1024px) {
+    /* Selecciona al equipo 13 (fila 4, columna 2) */
+    .card-equipo-vertical:nth-child(13) {
+        grid-column: 2;
+    }
+    /* Selecciona al equipo 14 (fila 4, columna 3) */
+    .card-equipo-vertical:nth-child(14) {
+        grid-column: 3;
+    }
+}
 /* Ajuste automático para pantallas de celulares */
 @media (max-width: 600px) {
     .img-banner {
@@ -415,7 +434,7 @@
 
         <!-- 2. EQUIPOS PARTICIPANTES -->
         <!-- 2. EQUIPOS PARTICIPANTES (Diseño Circular, Vertical y Rutas Actualizadas) -->
-        <section>
+    <section>
             <h2>Equipos Participantes</h2>
             
             <div class="grid-equipos-vertical">
@@ -492,13 +511,68 @@
                     <div class="nombre-equipo-abajo">INKA FORCE (IKF)</div>
                 </div>
 
+                <!-- Equipo 9 -->
+                <div class="card-equipo-vertical">
+                    <div class="logo-circular">
+                        <img src="sportingbebotas.jpeg" alt="Logo SPORTING BEBOTAS" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-texto-alternativo">SGB</div>
+                    </div>
+                    <div class="nombre-equipo-abajo">SPORTING BEBOTAS (SGB)</div>
+                </div>
+
+                <!-- Equipo 10 -->
+                <div class="card-equipo-vertical">
+                    <div class="logo-circular">
+                        <img src="cincocojudos.jpg" alt="Logo CINCO COJUDOS" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-texto-alternativo">COC</div>
+                    </div>
+                    <div class="nombre-equipo-abajo">CINCO COJUDOS (COC)</div>
+                </div>
+
+                <!-- Equipo 11 -->
+                <div class="card-equipo-vertical">
+                    <div class="logo-circular">
+                        <img src="imperium.jpeg" alt="Logo IMPERIUM" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-texto-alternativo">IMP</div>
+                    </div>
+                    <div class="nombre-equipo-abajo">IMPERIUM (IMP)</div>
+                </div>
+
+                <!-- Equipo 12 -->
+                <div class="card-equipo-vertical">
+                    <div class="logo-circular">
+                        <img src="teamsaltadores.png" alt="Logo TEAM SALTADORES" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-texto-alternativo">TSR</div>
+                    </div>
+                    <div class="nombre-equipo-abajo">TEAM SALTADORES (TSR)</div>
+                </div>
+                
+                <!-- Equipo 13 -->
+                <div class="card-equipo-vertical">
+                    <div class="logo-circular">
+                        <img src="uvimaboysfordoki.png" alt="Logo UVIMA BOYS FOR DOKI" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-texto-alternativo">UBFD</div>
+                    </div>
+                    <div class="nombre-equipo-abajo">UVIMA BOYS FOR DOKI (UBFD)</div>
+                </div>
+
+                <!-- Equipo 14 -->
+                <div class="card-equipo-vertical">
+                    <div class="logo-circular">
+                        <img src="desconocidos.png" alt="Logo DESCONOCIDOS" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-texto-alternativo">DSC</div>
+                    </div>
+                    <div class="nombre-equipo-abajo">DESCONOCIDOS (DSC)</div>
+                </div>
             </div>
         </section>
 
-        <!-- 3. FASE DE GRUPOS (Arriba) -->
+<!-- 3. FASE DE GRUPOS (Arriba) -->
         <section>
             <h2>Fase de Grupos</h2>
             <div class="fase-grupos-grid">
+                
+                <!-- GRUPO A -->
                 <div class="tabla-contenedor">
                     <h3>Grupo A</h3>
                     <div class="overflow-x">
@@ -507,15 +581,19 @@
                                 <tr><th>Equipo</th><th>PJ</th><th>PG</th><th>PP</th><th>Puntos</th></tr>
                             </thead>
                             <tbody>
-                                <tr><td>Team Liquid</td><td>3</td><td>2</td><td>1</td><td><strong>6</strong></td></tr>
-                                <tr><td>Team Spirit</td><td>3</td><td>2</td><td>1</td><td><strong>6</strong></td></tr>
-                                <tr><td>BetBoom Team</td><td>3</td><td>1</td><td>2</td><td><strong>3</strong></td></tr>
-                                <tr><td>Aurora</td><td>3</td><td>1</td><td>2</td><td><strong>3</strong></td></tr>
+                                <tr><td>Equipo 1</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+                                <tr><td>Equipo 2</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+                                <tr><td>Equipo 3</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+                                <tr><td>Equipo 4</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+                                <tr><td>Equipo 5</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+                                <tr><td>Equipo 6</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+                                <tr><td>Equipo 7</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
+                <!-- GRUPO B -->
                 <div class="tabla-contenedor">
                     <h3>Grupo B</h3>
                     <div class="overflow-x">
@@ -524,14 +602,18 @@
                                 <tr><th>Equipo</th><th>PJ</th><th>PG</th><th>PP</th><th>Puntos</th></tr>
                             </thead>
                             <tbody>
-                                <tr><td>Gaimin Gladiators</td><td>3</td><td>3</td><td>0</td><td><strong>9</strong></td></tr>
-                                <tr><td>Xtreme Gaming</td><td>3</td><td>2</td><td>1</td><td><strong>6</strong></td></tr>
-                                <tr><td>Team Falcons</td><td>3</td><td>1</td><td>2</td><td><strong>3</strong></td></tr>
-                                <tr><td>Shopify Rebellion</td><td>3</td><td>0</td><td>3</td><td><strong>0</strong></td></tr>
+                                <tr><td>Equipo 8</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+                                <tr><td>Equipo 9</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+                                <tr><td>Equipo 10</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+                                <tr><td>Equipo 11</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+                                <tr><td>Equipo 12</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+                                <tr><td>Equipo 13</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+                                <tr><td>Equipo 14</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
+
             </div>
         </section>
 
