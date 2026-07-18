@@ -414,7 +414,190 @@
         height: 70px;
     }
 }
-                
+    
+    /* --- ESTILOS DEL MODAL DE ESTADÍSTICAS --- */
+.modal-content-dota {
+    background: #1c1e24;
+    border: 1px solid var(--rojo-dota);
+    box-shadow: 0 0 30px rgba(138, 28, 28, 0.4);
+    width: 95%;
+    max-width: 800px;
+    border-radius: 6px;
+    overflow: hidden;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.activo .modal-content-dota {
+    transform: translateY(0);
+}
+
+.modal-body-dota {
+    padding: 25px;
+    background: #101114;
+}
+
+/* Marcador Superior */
+.marcador-global {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #141619;
+    padding: 15px 25px;
+    border-radius: 4px;
+    border: 1px solid var(--borde-metalico);
+    margin-bottom: 25px;
+}
+
+.bando-ganador, .bando-perdedor {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.bando-ganador h2 { font-size: 2.5rem; font-weight: 900; color: #4caf50; text-shadow: 0 0 10px rgba(76, 175, 80, 0.3); }
+.bando-perdedor h2 { font-size: 2.5rem; font-weight: 900; color: #f44336; text-shadow: 0 0 10px rgba(244, 67, 54, 0.3); }
+
+.siglas-team {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.info-centro-match {
+    text-align: center;
+}
+
+.badge-victoria {
+    color: var(--oro-dota);
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+}
+
+.duracion-match {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    margin: 2px 0;
+}
+
+.id-partida {
+    font-size: 0.75rem;
+    color: var(--texto-secundario);
+}
+
+/* Tablas de Jugadores */
+.equipos-detalles-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+@media (min-width: 768px) {
+    .equipos-detalles-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.bando-bloque {
+    background: #1c1e24;
+    border-radius: 4px;
+    padding: 15px;
+    border: 1px solid var(--borde-metalico);
+}
+
+.bando-bloque.line-radiant { border-top: 3px solid #4caf50; }
+.bando-bloque.line-dire { border-top: 3px solid #f44336; }
+
+.bando-bloque h4 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    color: #fff;
+    letter-spacing: 0.5px;
+}
+
+.player-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(47, 52, 61, 0.4);
+    font-size: 0.85rem;
+    align-items: center;
+}
+
+.player-row.header-row {
+    font-weight: bold;
+    color: var(--texto-secundario);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.player-row:last-child {
+    border-bottom: none;
+}
+
+.player-name-hero {
+    font-weight: 600;
+    color: #e4e4e4;
+}
+
+.player-name-hero small {
+    display: block;
+    color: var(--texto-secundario);
+    font-weight: normal;
+}
+
+.text-right { text-align: right; }
+.text-kda { font-weight: bold; color: #fff; }
+.text-oro { color: var(--oro-dota); font-weight: 600; }
+
+.mick-mvp {
+    color: #4caf50;
+    text-shadow: 0 0 5px rgba(76,175,80,0.4);
+}
+
+/* MVP Box */
+.mvp-dota-box {
+    background: linear-gradient(135deg, rgba(212, 163, 61, 0.1) 0%, rgba(0,0,0,0) 100%);
+    border: 1px solid rgba(212, 163, 61, 0.25);
+    padding: 15px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mvp-tag {
+    color: var(--oro-dota);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.mvp-player {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    margin-top: 2px;
+}
+
+.mvp-kda {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #4caf50;
+}
+
+.mvp-label {
+    font-size: 0.7 shadow;
+    color: var(--texto-secundario);
+    text-transform: uppercase;
+}
 
     </style>
 </head>
@@ -801,6 +984,7 @@
         </section>
 
         <!-- 5. HISTORIAL DE PARTIDAS -->
+        <!-- 5. HISTORIAL DE PARTIDAS -->
         <section>
             <h2>Historial de Partidas</h2>
             <div class="overflow-x">
@@ -818,15 +1002,51 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- Partida 1: INKA FORCE vs LOS FRACASADOS DE TICATICA -->
                         <tr>
-                            <td>17/07/2026</td>
-                            <td>Team Liquid</td>
-                            <td>Xtreme Gaming</td>
-                            <td>2 - 1</td>
-                            <td>Team Liquid</td>
-                            <td>42:15</td>
+                            <td>18/07/2026</td>
+                            <td>INKA FORCE (IKF)</td>
+                            <td>LOS FRACASADOS DE TICATICA (LFDT)</td>
+                            <td>47 - 24</td>
+                            <td>INKA FORCE (IKF)</td>
+                            <td>26:09</td>
                             <td><span class="badge finalizado">Finalizado</span></td>
-                            <td><button class="btn-stats" onclick="abrirModal('Team Liquid vs Xtreme Gaming')">Ver Estadísticas</button></td>
+                            <td><button class="btn-stats" onclick="abrirModal('ikf_lfdt')">Ver Estadísticas</button></td>
+                        </tr>
+                        <!-- Partida 2: BUYBACK EN CUOTAS vs TEARS OF BLOOD (W.O.) -->
+                        <tr>
+                            <td>18/07/2026</td>
+                            <td>BUYBACK EN CUOTAS (BEC)</td>
+                            <td>TEARS OF BLOOD (TOB)</td>
+                            <td>0 - W.O.</td>
+                            <td>TEARS OF BLOOD (TOB)</td>
+                            <td>00:00</td>
+                            <td><span class="badge finalizado" style="background: rgba(255, 152, 0, 0.2); color: #ff9800; border: 1px solid rgba(255, 152, 0, 0.3);">W.O.</span></td>
+                            <td><button class="btn-stats" onclick="abrirModal('bec_tob')">Ver Detalles</button></td>
+                        </tr>
+
+                        <!-- Nueva Partida: LKDE vs UBFD -->
+                        <tr>
+                            <td>18/07/2026</td>
+                            <td>LOS KCHEROS DE EDY (LKDE)</td>
+                            <td>UVIMA BOYS FOR DOKI (UBFD)</td>
+                            <td>10 - 41</td>
+                            <td>UVIMA BOYS FOR DOKI (UBFD)</td>
+                            <td>28:26</td>
+                            <td><span class="badge finalizado">Finalizado</span></td>
+                            <td><button class="btn-stats" onclick="abrirModal('lkde_ubfd')">Ver Estadísticas</button></td>
+                        </tr>
+
+                        <!-- Nueva Partida: COC vs SGB -->
+                        <tr>
+                            <td>18/07/2026</td>
+                            <td>CINCO COJUDOS (COC)</td>
+                            <td>SPORTING BEBOTAS (SGB)</td>
+                            <td>49 - 14</td>
+                            <td>CINCO COJUDOS (COC)</td>
+                            <td>29:06</td>
+                            <td><span class="badge finalizado">Finalizado</span></td>
+                            <td><button class="btn-stats" onclick="abrirModal('coc_sgb')">Ver Estadísticas</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -835,31 +1055,236 @@
 
     </div>
 
-    <!-- 6. MODAL DE ESTADÍSTICAS -->
+    <!-- 6. MODAL DE ESTADÍSTICAS (Estructura Limpia) -->
     <div class="modal-overlay" id="modalStats" onclick="cerrarModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="modal-content-dota" onclick="event.stopPropagation()">
             <div class="modal-header">
-                <h3 id="modalTitulo">Estadísticas</h3>
+                <h3 id="modalTitulo">Estadísticas de Partida</h3>
                 <button class="btn-cerrar" onclick="cerrarModal()">&times;</button>
             </div>
-            <div style="color: var(--texto-secundario); font-size: 0.9rem;">
-                <p>Kills, oro y métricas detalladas del encuentro aquí.</p>
-            </div>
+            <!-- El JS inyectará el contenido dinámicamente aquí -->
+            <div class="modal-body-dota" id="modalCuerpoDota"></div>
         </div>
     </div>
 
+    <!-- --- LÓGICA JAVASCRIPT Y BASE DE DATOS DEL TORNEO --- -->
     <script>
         const modal = document.getElementById('modalStats');
         const modalTitulo = document.getElementById('modalTitulo');
+        const modalCuerpo = document.getElementById('modalCuerpoDota');
 
-        function abrirModal(nombrePartida) {
-            modalTitulo.textContent = `Estadísticas: ${nombrePartida}`;
+        // ==========================================
+        // BASE DE DATOS DE PARTIDAS
+        // Aquí es donde meterás los datos de los nuevos encuentros futuros
+        // ==========================================
+        const partidasDB = {
+            "ikf_lfdt": {
+                tipo: "normal",
+                titulo: "INKA FORCE vs LOS FRACASADOS DE TICATICA",
+                teamGanador: "IKF",
+                killsGanador: "47",
+                teamPerdedor: "LFDT",
+                killsPerdedor: "24",
+                badgeVictoria: "VICTORIA DE INKA FORCE",
+                duracion: "26:09",
+                idPartida: "8902879707",
+                mvpNombre: "demonio (Snapfire)",
+                mvpKda: "18 / 5 / 12",
+                radiantName: "INKA FORCE",
+                radiantPlayers: [
+                    { name: "NINJA", hero: "Tusk", kda: "2 / 7 / 18", oro: "7,733" },
+                    { name: "AN1", hero: "Mars", kda: "10 / 3 / 18", oro: "15,117" },
+                    { name: "demonio", hero: "Snapfire", kda: "18 / 5 / 12", oro: "19,919", destaque: true },
+                    { name: "Kimochi", hero: "Pangolier", kda: "8 / 7 / 26", oro: "10,585" },
+                    { name: "мусор", hero: "Morphling", kda: "9 / 2 / 10", oro: "19,109" }
+                ],
+                direName: "LOS FRACASADOS DE TICATICA",
+                direPlayers: [
+                    { name: "Kārmā", hero: "Ursa", kda: "5 / 6 / 5", oro: "12,978" },
+                    { name: "Ksh", hero: "Skywrath Mage", kda: "2 / 10 / 10", oro: "8,816" },
+                    { name: "KANpesino", hero: "Treant Protector", kda: "8 / 10 / 9", oro: "11,662" },
+                    { name: "the sick", hero: "Shadow Shaman", kda: "5 / 11 / 12", oro: "5,606" },
+                    { name: "P I P A", hero: "Shadow Demon", kda: "3 / 10 / 17", oro: "5,733" }
+                ]
+            },
+            "bec_tob": {
+                tipo: "wo",
+                titulo: "BUYBACK EN CUOTAS vs TEARS OF BLOOD",
+                teamGanador: "TEARS OF BLOOD (TOB)",
+                teamPerdedor: "BUYBACK EN CUOTAS (BEC)",
+                motivo: "El equipo rival (BUYBACK EN CUOTAS) no se presentó o no completó la alineación en la sala oficial de Modo Capitán dentro del tiempo reglamentario."
+            },
+
+            "lkde_ubfd": {
+                tipo: "normal",
+                titulo: "LOS KCHEROS DE EDY vs UVIMA BOYS FOR DOKI",
+                teamGanador: "UBFD",
+                killsGanador: "41",
+                teamPerdedor: "LKDE",
+                killsPerdedor: "10",
+                badgeVictoria: "VICTORIA DE UVIMA BOYS FOR DOKI",
+                duracion: "28:26",
+                idPartida: "8902899506",
+                mvpNombre: "Ron Damon (Templar Assassin)",
+                mvpKda: "18 / 0 / 16",
+                radiantName: "LOS KCHEROS DE EDY",
+                radiantPlayers: [
+                    { name: "4 burr*s y yo", hero: "Omniknight", kda: "1 / 9 / 8", oro: "3,641" },
+                    { name: "Crist0f_ScS", hero: "Chaos Knight", kda: "1 / 10 / 3", oro: "8,160" },
+                    { name: "<sa'!..>", hero: "Skywrath Mage", kda: "1 / 12 / 3", oro: "4,314" },
+                    { name: "A20001", hero: "Outworld Destroyer", kda: "2 / 6 / 4", oro: "10,154" },
+                    { name: "thesciencesguy", hero: "Omniknight", kda: "5 / 4 / 3", oro: "9,598" }
+                ],
+                direName: "UVIMA BOYS FOR DOKI",
+                direPlayers: [
+                    { name: "Vinsmoke'ツ", hero: "Doom", kda: "6 / 1 / 22", oro: "11,594" },
+                    { name: "-Maddox", hero: "Leshrac", kda: "9 / 5 / 16", oro: "16,692" },
+                    { name: "CORIANS", hero: "Rubick", kda: "4 / 2 / 26", oro: "9,944" },
+                    { name: "Ron Damon", hero: "Templar Assassin", kda: "18 / 0 / 16", oro: "22,056", destaque: true },
+                    { name: "Paulina Rubio", hero: "Hoodwink", kda: "4 / 2 / 23", oro: "9,425" }
+                ]
+            },
+
+            "coc_sgb": {
+                tipo: "normal",
+                titulo: "CINCO COJUDOS vs SPORTING BEBOTAS",
+                teamGanador: "COC",
+                killsGanador: "49",
+                teamPerdedor: "SGB",
+                killsPerdedor: "14",
+                badgeVictoria: "VICTORIA DE CINCO COJUDOS",
+                duracion: "29:06",
+                idPartida: "8902897582",
+                mvpNombre: "COCO (Pangolier)",
+                mvpKda: "15 / 3 / 18",
+                radiantName: "CINCO COJUDOS",
+                radiantPlayers: [
+                    { name: "COCO", hero: "Pangolier", kda: "15 / 3 / 18", oro: "18,418", destaque: true },
+                    { name: "Perrito Panzón", hero: "Lycandroid / Primal", kda: "11 / 4 / 17", oro: "14,832" },
+                    { name: "Y-1𓆩𓆪", hero: "Tiny", kda: "13 / 2 / 11", oro: "17,887" },
+                    { name: "-21 Tiece", hero: "Medusa", kda: "5 / 4 / 27", oro: "9,983" },
+                    { name: "NO FACE", hero: "Disruptor", kda: "5 / 1 / 32", oro: "8,526" }
+                ],
+                direName: "SPORTING BEBOTAS",
+                direPlayers: [
+                    { name: "IDK", hero: "Abaddon", kda: "2 / 10 / 4", oro: "8,695" },
+                    { name: "pedro castillo", hero: "Pudge", kda: "4 / 11 / 5", oro: "5,001" },
+                    { name: "IL_CARRY_POTTER", hero: "Broodmother", kda: "4 / 7 / 6", oro: "9,706" },
+                    { name: "bixbox", hero: "Lion", kda: "1 / 11 / 5", oro: "4,532" },
+                    { name: "Geezy", hero: "Storm Spirit", kda: "2 / 10 / 6", oro: "12,482" }
+                ]
+            }
+
+        };
+
+        // ==========================================
+        // FUNCIONES DE CONTROL DEL MODAL
+        // ==========================================
+        function abrirModal(idPartida) {
+            const partida = partidasDB[idPartida];
+            
+            if (!partida) {
+                modalTitulo.textContent = "Estadísticas";
+                modalCuerpo.innerHTML = `<p style='color: var(--texto-secundario); text-align:center; padding: 20px;'>Datos de partida no registrados.</p>`;
+                modal.classList.add('activo');
+                return;
+            }
+
+            modalTitulo.textContent = `Estadísticas: ${partida.titulo}`;
+
+            // CONTROL SI LA PARTIDA FUE POR WALK OVER (W.O.)
+            if (partida.tipo === "wo") {
+                modalCuerpo.innerHTML = `
+                    <div class="marcador-global" style="border-color: #ff9800; background: rgba(255, 152, 0, 0.05);">
+                        <div class="info-centro-match" style="width: 100%;">
+                            <div class="badge-victoria" style="color: #ff9800; font-size: 1.1rem;">VICTORIA POR WALKOVER (W.O.)</div>
+                            <div class="duracion-match" style="margin-top: 10px; color: #fff;">${partida.teamGanador} gana el encuentro</div>
+                            <div class="id-partida" style="margin-top: 5px; font-size: 0.85rem; color: var(--texto-secundario); line-height: 1.4;">
+                                ${partida.motivo}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bando-bloque" style="text-align: center; color: var(--texto-secundario); padding: 30px;">
+                        <p>⚠️ No hay métricas de juego disponibles para este enfrentamiento debido a una resolución administrativa por ausencia del oponente.</p>
+                    </div>
+                `;
+            } else {
+                // CONTROL PARA PARTIDA NORMAL JUGADA
+                let radiantRows = partida.radiantPlayers.map(p => `
+                    <div class="player-row">
+                        <span class="player-name-hero">${p.name} <small>(${p.hero})</small></span>
+                        <span class="text-right text-kda ${p.destaque ? 'mick-mvp' : ''}">${p.kda}</span>
+                        <span class="text-right text-oro">${p.oro}</span>
+                    </div>
+                `).join('');
+
+                let direRows = partida.direPlayers.map(p => `
+                    <div class="player-row">
+                        <span class="player-name-hero">${p.name} <small>(${p.hero})</small></span>
+                        <span class="text-right text-kda">${p.kda}</span>
+                        <span class="text-right text-oro">${p.oro}</span>
+                    </div>
+                `).join('');
+
+                modalCuerpo.innerHTML = `
+                    <div class="marcador-global">
+                        <div class="bando-ganador text-ganador">
+                            <span class="siglas-team">${partida.teamGanador}</span>
+                            <h2>${partida.killsGanador}</h2>
+                        </div>
+                        <div class="info-centro-match">
+                            <div class="badge-victoria">${partida.badgeVictoria}</div>
+                            <div class="duracion-match">Duración: ${partida.duracion}</div>
+                            <div class="id-partida">ID: ${partida.idPartida}</div>
+                        </div>
+                        <div class="bando-perdedor text-perdedor">
+                            <h2>${partida.killsPerdedor}</h2>
+                            <span class="siglas-team">${partida.teamPerdedor}</span>
+                        </div>
+                    </div>
+
+                    <div class="equipos-detalles-grid">
+                        <div class="bando-bloque line-radiant">
+                            <h4>${partida.radiantName}</h4>
+                            <div class="player-row header-row"><span>Jugador</span><span class="text-right">K/D/A</span><span class="text-right">Oro</span></div>
+                            ${radiantRows}
+                        </div>
+                        <div class="bando-bloque line-dire">
+                            <h4>${partida.direName}</h4>
+                            <div class="player-row header-row"><span>Jugador</span><span class="text-right">K/D/A</span><span class="text-right">Oro</span></div>
+                            ${direRows}
+                        </div>
+                    </div>
+
+                    <div class="mvp-dota-box">
+                        <div>
+                            <div class="mvp-tag">Mención Destacada (Top Networth & Kills)</div>
+                            <div class="mvp-player">${partida.mvpNombre}</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="mvp-kda">${partida.mvpKda}</div>
+                            <div class="mvp-label">Rendimiento Imparable</div>
+                        </div>
+                    </div>
+                `;
+            }
+
             modal.classList.add('activo');
         }
 
         function cerrarModal() {
             modal.classList.remove('activo');
         }
+
+        // Soporte para cerrar con la tecla Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('activo')) {
+                cerrarModal();
+            }
+        });
     </script>
+
+
+
 </body>
 </html>
