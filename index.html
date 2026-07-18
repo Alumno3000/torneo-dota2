@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torneo de Dota II - Double Elimination</title>
+    <style>
+        /* --- VARIABLES DE DISEÑO (Identidad Dota 2) --- */
+        /* --- VARIABLES DE DISEÑO (Identidad Dota 2) --- */
+        :root {
+            --bg-principal: #0c0d10;
+            --bg-tarjetas: #1c1e24;
+            --bg-tablas: #141619;
+            --rojo-dota: #8a1c1c;
+            --rojo-brillo: #e32727;
+            --texto-principal: #e4e4e4;
+            --texto-secundario: #9095a0;
+            --borde-metalico: #2f343d;
+            --oro-dota: #d4a33d;
+            --fuente: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* --- ESTILOS GENERALES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-principal);
+            font-family: var(--fuente);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .contenedor {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            color: var(--texto-principal);
+            border-left: 4px solid var(--rojo-dota);
+            padding-left: 15px;
+        }
+
+        section {
+            background: rgba(20, 22, 25, 0.6);
+            border: 1px solid var(--borde-metalico);
+            border-radius: 6px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+
+        /* --- 1. ENCABEZADO --- */
+        .header-torneo {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: linear-gradient(180deg, rgba(138, 28, 28, 0.15) 0%, rgba(12, 13, 16, 0) 100%);
+            border-bottom: 1px solid var(--borde-metalico);
+        }
+
+        .header-torneo h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 6px;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(227, 39, 39, 0.6), 0 4px 10px rgba(0,0,0,0.9);
+            margin-bottom: 30px;
+        }
+
+        .contenedor-placeholders {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .img-placeholder {
+            width: 340px;
+            height: 120px;
+            background: #141619;
+            border: 2px dashed var(--rojo-dota);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--texto-secundario);
+            font-size: 0.9rem;
+            border-radius: 4px;
+        }
+
+        /* --- 2. EQUIPOS PARTICIPANTES (CIRCULARES) --- */
+        .grid-equipos-vertical {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+        }
+
+        @media (min-width: 1200px) {
+            .grid-equipos-vertical {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .card-equipo-vertical {
+            background: linear-gradient(180deg, var(--bg-tarjetas) 0%, rgba(20, 22, 25, 0.9) 100%);
+            border: 1px solid var(--borde-metalico);
+            border-radius: 8px;
+            padding: 25px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 15px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+        }
+
+        .card-equipo-vertical:hover {
+            transform: translateY(-5px);
+            border-color: var(--rojo-dota);
+            box-shadow: 0 8px 20px rgba(227, 39, 39, 0.15);
+        }
+
+        .logo-circular {
+            width: 85px;
+            height: 85px;
+            background: #101114;
+            border-radius: 50%;
+            border: 2px solid var(--borde-metalico);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        .card-equipo-vertical:hover .logo-circular {
+            border-color: var(--rojo-brillo);
+        }
+
+        .logo-circular img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .nombre-equipo-abajo {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--texto-principal);
+            text-transform: uppercase;
+        }
+
+        .logo-texto-alternativo {
+            display: none;
+            font-weight: bold;
+            color: var(--texto-secundario);
+            font-size: 1rem;
+            letter-spacing: 1px;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- 3. FASE DE GRUPOS --- */
+        .fase-grupos-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 1024px) {
+            .fase-grupos-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .tabla-contenedor h3 {
+            font-size: 1.1rem;
+            color: var(--oro-dota);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tabla-dota {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-tablas);
+            border: 1px solid var(--borde-metalico);
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .tabla-dota th, .tabla-dota td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(47, 52, 61, 0.5);
+        }
+
+        .tabla-dota th {
+            background-color: rgba(0, 0, 0, 0.4);
+            color: var(--texto-secundario);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        /* --- 4. LLAVES DEL TORNEO --- */
+        .bracket-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            background: var(--bg-tablas);
+            padding: 30px 20px;
+            border: 1px solid var(--borde-metalico);
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        .bracket-bloque {
+            border: 1px solid rgba(212, 163, 61, 0.15);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 4px;
+        }
+
+        .bracket-bloque.upper { border-left: 4px solid var(--rojo-dota); }
+        .bracket-bloque.lower { border-left: 4px solid #4a729e; }
+        .bracket-bloque.final { border-left: 4px solid var(--oro-dota); }
+
+        .bracket-bloque h3 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .bracket-rondas {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .ronda {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .ronda-titulo {
+            font-size: 0.8rem;
+            color: var(--texto-secundario);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .matchup-wrapper {
+            position: relative;
+        }
+
+        .matchup {
+            background: var(--bg-tarjetas);
+            border: 1px solid var(--borde-metalico);
+            border-radius: 4px;
+            width: 220px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .matchup-equipo {
+            padding: 10px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .matchup-equipo:first-child {
+            border-bottom: 1px solid rgba(47, 52, 61, 0.5);
+        }
+
+        .matchup-equipo.ganador {
+            color: #fff;
+            font-weight: bold;
+            background: linear-gradient(90deg, rgba(212, 163, 61, 0.08) 0%, rgba(0,0,0,0) 100%);
+        }
+
+        .matchup-equipo.perdedor {
+            color: var(--texto-secundario);
+            opacity: 0.7;
+        }
+
+        .matchup-score {
+            font-weight: bold;
+            color: var(--oro-dota);
+            background: rgba(0,0,0,0.3);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .flow-info {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-weight: bold;
+        }
+        .flow-info.drop { background: rgba(138, 28, 28, 0.2); color: #ff6b6b; border: 1px solid rgba(218, 54, 54, 0.3); }
+        .flow-info.out { background: rgba(40, 40, 40, 0.8); color: #777; border: 1px solid #444; }
+
+        /* --- 5. HISTORIAL DE PARTIDAS Y GENERAL --- */
+        .badge {
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .badge.finalizado { background: rgba(44, 48, 56, 0.8); color: var(--texto-secundario); }
+        .badge.en-juego { background: rgba(138, 28, 28, 0.3); color: var(--rojo-brillo); border: 1px solid var(--rojo-dota); }
+        .badge.pendiente { background: rgba(212, 163, 61, 0.15); color: var(--oro-dota); border: 1px solid rgba(212, 163, 61, 0.3); }
+
+        .btn-stats {
+            background: linear-gradient(180deg, #464d57 0%, #2f343d 100%);
+            border: 1px solid #5a6270;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .btn-stats:hover {
+            background: linear-gradient(180deg, var(--rojo-brillo) 0%, var(--rojo-dota) 100%);
+            border-color: #ff4a4a;
+        }
+
+        /* --- 6. MODAL --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000; opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.activo { opacity: 1; pointer-events: auto; }
+        .modal-content {
+            background: var(--bg-tarjetas); border: 1px solid var(--rojo-dota);
+            width: 90%; max-width: 700px; border-radius: 6px; padding: 20px;
+        }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;}
+        .btn-cerrar { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+
+        .overflow-x { overflow-x: auto; }
+
+        .img-banner {
+    width: 280px;        /* Ancho fijo y controlado para PC */
+    height: 280px;        /* Altura fija y delgada */
+    object-fit: contain; /* 'contain' asegura que la imagen entera se encoja para entrar en el cuadro sin cortarse */
+    background: #141619; /* Fondo oscuro por si la imagen tiene transparencias */
+    border: 1px solid var(--borde-metalico);
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.img-banner:hover {
+    transform: scale(1.03);
+    border-color: var(--rojo-brillo);
+}
+
+/* Ajuste automático para pantallas de celulares */
+@media (max-width: 600px) {
+    .img-banner {
+        width: 100%;    /* En celular sí toma el ancho disponible */
+        max-width: 300px;
+        height: 70px;
+    }
+}
+                
+
+    </style>
+</head>
+<body>
+
+    <div class="contenedor">
+
+        <!-- 1. ENCABEZADO -->
+        <header class="header-torneo">
+            <h1>TORNEO DE DOTA II</h1>
+            <div class="contenedor-placeholders">
+                <!-- Reemplaza 'banner1.png' y 'banner2.png' por las rutas de tus imágenes -->
+                <img class="img-banner" src="logo.png" alt="Banner Informativo 1" onerror="this.style.display='none';">
+                <img class="img-banner" src="logo.jpg" alt="Banner Informativo 2" onerror="this.style.display='none';">
+            </div>
+        </header>
+
+        <!-- 2. EQUIPOS PARTICIPANTES -->
+        <!-- 2. EQUIPOS PARTICIPANTES (Diseño Circular, Vertical y Rutas Actualizadas) -->
+        <section>
+            <h2>Equipos Participantes</h2>
+            
+            <div class="grid-equipos-vertical">
+                
+                <!-- Equipo 1 -->
+                <div class="card-equipo-vertical">
+                    <div class="logo-circular">
+                        <img src="buybackencuotas.png" alt="Logo BUYBACK EN CUOTAS" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-texto-alternativo">BEC</div>
+                    </div>
+                    <div class="nombre-equipo-abajo">BUYBACK EN CUOTAS (BEC)</div>
+                </div>
+
+                <!-- Equipo 2 -->
+                <div class="card-equipo-vertical">
+                    <div class="logo-circular">
+                        <img src="loskcherosdeedy.png" alt="Logo LOS KCHEROS DE EDY" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-texto-alternativo">LKDE</div>
+                    </div>
+                    <div class="nombre-equipo-abajo">LOS KCHEROS DE EDY (LKDE)</div>
+                </div>
+
+                <!-- Equipo 3 -->
+                <div class="card-equipo-vertical">
+                    <div class="logo-circular">
+                        <img src="tearsofblood.jpeg" alt="Logo TEARS OF BLOOD" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-texto-alternativo">TOB</div>
+                    </div>
+                    <div class="nombre-equipo-abajo">TEARS OF BLOOD (TOB)</div>
+                </div>
+
+                <!-- Equipo 4 -->
+                <div class="card-equipo-vertical">
+                    <div class="logo-circular">
+                        <img src="losfracasadosdeticatica.jpg" alt="Logo LOS FRACASADOS DE TICATICA" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-texto-alternativo">LFDT</div>
+                    </div>
+                    <div class="nombre-equipo-abajo">LOS FRACASADOS DE TICATICA (LFDT)</div>
+                </div>
+
+                <!-- Equipo 5 -->
+                <div class="card-equipo-vertical">
+                    <div class="logo-circular">
+                        <img src="alanokaprime.png" alt="Logo ALANOKA PRIME" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-texto-alternativo">AKP</div>
+                    </div>
+                    <div class="nombre-equipo-abajo">ALANOKA PRIME (AKP)</div>
+                </div>
+
+                <!-- Equipo 6 -->
+                <div class="card-equipo-vertical">
+                    <div class="logo-circular">
+                        <img src="lossacaau.jpg" alt="Logo LOS SACA AU" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-texto-alternativo">LSA</div>
+                    </div>
+                    <div class="nombre-equipo-abajo">LOS SACA AU (LSA)</div>
+                </div>
+
+                <!-- Equipo 7 -->
+                <div class="card-equipo-vertical">
+                    <div class="logo-circular">
+                        <img src="viralatacaramelo.jpeg" alt="Logo VIRA LATA CARAMELO" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-texto-alternativo">VLC</div>
+                    </div>
+                    <div class="nombre-equipo-abajo">VIRA LATA CARAMELO (VLC)</div>
+                </div>
+
+                <!-- Equipo 8 -->
+                <div class="card-equipo-vertical">
+                    <div class="logo-circular">
+                        <img src="inkaforce.png" alt="Logo INKA FORCE" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-texto-alternativo">IKF</div>
+                    </div>
+                    <div class="nombre-equipo-abajo">INKA FORCE (IKF)</div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 3. FASE DE GRUPOS (Arriba) -->
+        <section>
+            <h2>Fase de Grupos</h2>
+            <div class="fase-grupos-grid">
+                <div class="tabla-contenedor">
+                    <h3>Grupo A</h3>
+                    <div class="overflow-x">
+                        <table class="tabla-dota">
+                            <thead>
+                                <tr><th>Equipo</th><th>PJ</th><th>PG</th><th>PP</th><th>Puntos</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Team Liquid</td><td>3</td><td>2</td><td>1</td><td><strong>6</strong></td></tr>
+                                <tr><td>Team Spirit</td><td>3</td><td>2</td><td>1</td><td><strong>6</strong></td></tr>
+                                <tr><td>BetBoom Team</td><td>3</td><td>1</td><td>2</td><td><strong>3</strong></td></tr>
+                                <tr><td>Aurora</td><td>3</td><td>1</td><td>2</td><td><strong>3</strong></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tabla-contenedor">
+                    <h3>Grupo B</h3>
+                    <div class="overflow-x">
+                        <table class="tabla-dota">
+                            <thead>
+                                <tr><th>Equipo</th><th>PJ</th><th>PG</th><th>PP</th><th>Puntos</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Gaimin Gladiators</td><td>3</td><td>3</td><td>0</td><td><strong>9</strong></td></tr>
+                                <tr><td>Xtreme Gaming</td><td>3</td><td>2</td><td>1</td><td><strong>6</strong></td></tr>
+                                <tr><td>Team Falcons</td><td>3</td><td>1</td><td>2</td><td><strong>3</strong></td></tr>
+                                <tr><td>Shopify Rebellion</td><td>3</td><td>0</td><td>3</td><td><strong>0</strong></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. LLAVES DEL TORNEO (Formato de Doble Eliminación Real de 8 Equipos) -->
+        <section>
+            <h2>Llaves del Torneo (Double Elimination)</h2>
+            <div class="bracket-container">
+                
+                <!-- UPPER BRACKET -->
+                <div class="bracket-bloque upper">
+                    <h3>Upper Bracket </h3>
+                    <div class="bracket-rondas">
+                        
+                        <!-- Ronda 1 Upper -->
+                        <div class="ronda">
+                            <div class="ronda-titulo">Semifinales UB</div>
+                            
+                            <!-- Enfrentamiento 1 -->
+                            <div class="matchup-wrapper">
+                                <div class="matchup">
+                                    <div class="matchup-equipo">
+                                        <span>Por definir</span> <span class="matchup-score">-</span>
+                                    </div>
+                                    <div class="matchup-equipo">
+                                        <span>Por definir</span> <span class="matchup-score">-</span>
+                                    </div>
+                                </div>
+                                <span class="flow-info drop">Perdedor cae a LB R2 (A)</span>
+                            </div>
+
+                            <!-- Enfrentamiento 2 -->
+                            <div class="matchup-wrapper">
+                                <div class="matchup">
+                                    <div class="matchup-equipo">
+                                        <span>Por definir</span> <span class="matchup-score">-</span>
+                                    </div>
+                                    <div class="matchup-equipo">
+                                        <span>Por definir</span> <span class="matchup-score">-</span>
+                                    </div>
+                                </div>
+                                <span class="flow-info drop">Perdedor cae a LB R2 (B)</span>
+                            </div>
+                        </div>
+
+                        <!-- Ronda 2 Upper -->
+                        <div class="ronda">
+                            <div class="ronda-titulo">Final UB</div>
+                            <div class="matchup-wrapper">
+                                <div class="matchup">
+                                    <div class="matchup-equipo">
+                                        <span>Ganador UB Semi 1</span> <span class="matchup-score">-</span>
+                                    </div>
+                                    <div class="matchup-equipo">
+                                        <span>Ganador UB Semi 2</span> <span class="matchup-score">-</span>
+                                    </div>
+                                </div>
+                                <span class="flow-info drop">Perdedor cae a LB R4 (Final LB)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LOWER BRACKET -->
+                <div class="bracket-bloque lower">
+                    <h3>Lower Bracket </h3>
+                    <div class="bracket-rondas">
+                        
+                        <!-- Ronda 1 Lower -->
+                        <div class="ronda">
+                            <div class="ronda-titulo">Ronda 1 LB</div>
+                            
+                            <!-- Enfrentamiento 1 -->
+                            <div class="matchup-wrapper">
+                                <div class="matchup">
+                                    <div class="matchup-equipo">
+                                        <span>Por definir</span> <span class="matchup-score">-</span>
+                                    </div>
+                                    <div class="matchup-equipo">
+                                        <span>Por definir</span> <span class="matchup-score">-</span>
+                                    </div>
+                                </div>
+                                <span class="flow-info out">Perdedor descalificado</span>
+                            </div>
+
+                            <!-- Enfrentamiento 2 -->
+                            <div class="matchup-wrapper">
+                                <div class="matchup">
+                                    <div class="matchup-equipo">
+                                        <span>Por definir</span> <span class="matchup-score">-</span>
+                                    </div>
+                                    <div class="matchup-equipo">
+                                        <span>Por definir</span> <span class="matchup-score">-</span>
+                                    </div>
+                                </div>
+                                <span class="flow-info out">Perdedor descalificado</span>
+                            </div>
+                        </div>
+
+                        <!-- Ronda 2 Lower -->
+                        <div class="ronda">
+                            <div class="ronda-titulo">Ronda 2 LB</div>
+                            
+                            <!-- Enfrentamiento 1 -->
+                            <div class="matchup-wrapper">
+                                <div class="matchup">
+                                    <div class="matchup-equipo">
+                                        <span>Ganador LB R1 (1)</span> <span class="matchup-score">-</span>
+                                    </div>
+                                    <div class="matchup-equipo" style="color: var(--rojo-brillo);">
+                                        <span>Perdedor UB Semi 1</span> <span class="matchup-score">-</span>
+                                    </div>
+                                </div>
+                                <span class="flow-info out">Perdedor descalificado</span>
+                            </div>
+
+                            <!-- Enfrentamiento 2 -->
+                            <div class="matchup-wrapper">
+                                <div class="matchup">
+                                    <div class="matchup-equipo">
+                                        <span>Ganador LB R1 (2)</span> <span class="matchup-score">-</span>
+                                    </div>
+                                    <div class="matchup-equipo" style="color: var(--rojo-brillo);">
+                                        <span>Perdedor UB Semi 2</span> <span class="matchup-score">-</span>
+                                    </div>
+                                </div>
+                                <span class="flow-info out">Perdedor descalificado</span>
+                            </div>
+                        </div>
+
+                        <!-- Ronda 3 Lower -->
+                        <div class="ronda">
+                            <div class="ronda-titulo">Ronda 3 LB</div>
+                            
+                            <div class="matchup-wrapper">
+                                <div class="matchup">
+                                    <div class="matchup-equipo">
+                                        <span>Ganador LB R2 (A)</span> <span class="matchup-score">-</span>
+                                    </div>
+                                    <div class="matchup-equipo">
+                                        <span>Ganador LB R2 (B)</span> <span class="matchup-score">-</span>
+                                    </div>
+                                </div>
+                                <span class="flow-info out">Perdedor descalificado</span>
+                            </div>
+                        </div>
+
+                        <!-- Ronda 4 Lower (Final LB) -->
+                        <div class="ronda">
+                            <div class="ronda-titulo">Final LB (R4)</div>
+                            
+                            <div class="matchup-wrapper">
+                                <div class="matchup">
+                                    <div class="matchup-equipo">
+                                        <span>Ganador LB R3</span> <span class="matchup-score">-</span>
+                                    </div>
+                                    <div class="matchup-equipo" style="color: var(--rojo-brillo);">
+                                        <span>Perdedor Final UB</span> <span class="matchup-score">-</span>
+                                    </div>
+                                </div>
+                                <span class="flow-info out">Perdedor queda 3° Lugar</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- GRAN FINAL -->
+                <div class="bracket-bloque final">
+                    <h3>Gran Final</h3>
+                    <div class="bracket-rondas">
+                        <div class="ronda">
+                            <div class="matchup" style="border-color: var(--oro-dota); width: 260px;">
+                                <div class="matchup-equipo">
+                                    <span>Ganador Final UB</span> <span class="matchup-score">-</span>
+                                </div>
+                                <div class="matchup-equipo">
+                                    <span>Ganador Final LB (R4)</span> <span class="matchup-score">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 5. HISTORIAL DE PARTIDAS -->
+        <section>
+            <h2>Historial de Partidas</h2>
+            <div class="overflow-x">
+                <table class="tabla-dota">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Equipo 1</th>
+                            <th>Equipo 2</th>
+                            <th>Resultado</th>
+                            <th>Ganador</th>
+                            <th>Duración</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>17/07/2026</td>
+                            <td>Team Liquid</td>
+                            <td>Xtreme Gaming</td>
+                            <td>2 - 1</td>
+                            <td>Team Liquid</td>
+                            <td>42:15</td>
+                            <td><span class="badge finalizado">Finalizado</span></td>
+                            <td><button class="btn-stats" onclick="abrirModal('Team Liquid vs Xtreme Gaming')">Ver Estadísticas</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- 6. MODAL DE ESTADÍSTICAS -->
+    <div class="modal-overlay" id="modalStats" onclick="cerrarModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 id="modalTitulo">Estadísticas</h3>
+                <button class="btn-cerrar" onclick="cerrarModal()">&times;</button>
+            </div>
+            <div style="color: var(--texto-secundario); font-size: 0.9rem;">
+                <p>Kills, oro y métricas detalladas del encuentro aquí.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('modalStats');
+        const modalTitulo = document.getElementById('modalTitulo');
+
+        function abrirModal(nombrePartida) {
+            modalTitulo.textContent = `Estadísticas: ${nombrePartida}`;
+            modal.classList.add('activo');
+        }
+
+        function cerrarModal() {
+            modal.classList.remove('activo');
+        }
+    </script>
+</body>
+</html>
